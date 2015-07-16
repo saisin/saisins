@@ -199,7 +199,7 @@ default{
         Check(msg);
     }
     link_message(integer sender,integer num,string msg,key id){
-        if((num==1)&&(id=="commands")){
+        if((num==-1)&&(id=="cmd")){
             objname=llGetObjectName();
             Check(msg);
         }

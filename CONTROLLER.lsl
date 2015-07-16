@@ -88,7 +88,7 @@ Run(){
         tmplist=llParseString2List(llList2String(commandlist,command_index),["&"],[]);
         for(i=0;i<llGetListLength(tmplist);i++){
             llShout(COMMON_CHANNEL,chnlname+"\n"+llList2String(tmplist,i));
-            llMessageLinked(LINK_THIS,-1,chnlname+"\n"+llList2String(tmplist,i),"commands");
+            llMessageLinked(LINK_THIS,-1,chnlname+"\n"+llList2String(tmplist,i),"cmd");
         }
     }
 

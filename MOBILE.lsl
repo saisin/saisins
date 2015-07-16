@@ -56,6 +56,7 @@ string MSG_LINK_ERROR="×エラー：MOBILE_BASEがルートプリムになっ�
 
 integer controller_cnt;
 integer controller_cnt2;
+list controller_linknum;
 string timer_mode;
 integer controller_num=0;
 //==============================================
@@ -146,6 +147,7 @@ default{
                 llOwnerSay("POSMEMORYを開始します・・・");
                 controller_cnt=0;
                 controller_cnt2=0;
+        controller_linknum=[];
                 timer_mode="pos_memory";
                 llMessageLinked(LINK_SET,-1,"POSMEMORY",(string)rezzer_pos+"&"+(string)rezzer_rot);
                 llSetTimerEvent(10);
@@ -153,6 +155,7 @@ default{
                 llOwnerSay("POSLOADを開始します・・・");
                 controller_cnt=0;
                 controller_cnt2=0;
+        controller_linknum=[];
                 timer_mode="pos_load";
                 llMessageLinked(LINK_SET,-1,"POSLOAD",(string)rezzer_pos+"&"+(string)rezzer_rot);
                 llSetTimerEvent(10);
@@ -161,10 +164,24 @@ default{
     }
     link_message(integer sender,integer num,string msg,key id){
         if(num==-1){
-            if(msg=="PM_START"){controller_cnt++;}
-            if(msg=="PM_END"){controller_cnt2++;}
-            if(msg=="PL_START"){controller_cnt++;}
-            if(msg=="PL_END"){controller_cnt2++;}
+            if(msg=="PM_START"){
+            controller_cnt++;
+            controller_linknum+=(list)sender;
+        }
+            if(msg=="PM_END"){
+            controller_cnt2++;
+            integer find=llListFindList(controller_linknum,[sender]);
+            if(find!=-1){controller_linknum=llDeleteSubList(controller_linknum,find,find);}
+        }
+            if(msg=="PL_START"){
+            controller_cnt++;
+            controller_linknum+=(list)sender;
+        }
+            if(msg=="PL_END"){
+            controller_cnt2++;
+            integer find=llListFindList(controller_linknum,[sender]);
+            if(find!=-1){controller_linknum=llDeleteSubList(controller_linknum,find,find);}
+        }
         }
     }
     timer(){
@@ -175,18 +192,25 @@ default{
                 llOwnerSay((string)controller_cnt2+" CONTROLLERのPOSMEMORYが完了しました。\n移動先でFrogFlagを設置し、MOBILE_BASEを長押ししてPOSLOADを行ってください。");
                 PosMemoryFlg=TRUE;
             }else{
-                llOwnerSay("×エラー：POSMEMORYに失敗しました。[ "+(string)controller_cnt2+"/"+(string)controller_cnt+" ]");
+                string tmpstr;
+                integer i;
+                for(i=0;llList2String(controller_linknum,i)!="";i++){
+                    tmpstr+="リンクナンバー"+llList2String(controller_linknum,i)+"のCONTROLLERが容量オーバーしています。\n";
+                }
+                llOwnerSay("×エラー：POSMEMORY失敗\n"+tmpstr+"該当CONTROLLERのコマンドを減らしてください。");
             }
             return;
         }
         if(timer_mode=="pos_load"){
             if(controller_cnt==controller_cnt2){
-                llOwnerSay("POSLOADが完了しました。問題がなければFrogFlagを撤去してください。");
+                llOwnerSay((string)controller_cnt+" CONTROLLERのPOSLOADが完了しました。\n問題がなければFrogFlagを撤去してください。");
             }else{
-                llOwnerSay("×エラー：POSLOADに失敗しました。[ "+(string)controller_cnt2+"/"+(string)controller_cnt+" ]\nコマンドを短くしてPOSMEMORYをやり直してください。");
-×エラー：POSLOADに失敗しました。[ 4/5 ]
-リンクナンバー※のCONTROLLERが容量オーバーしています。
-ノートカード内のコマンドを減らしてPOSMEMORYからやり直してください。
+                string tmpstr;
+                integer i;
+                for(i=0;llList2String(controller_linknum,i)!="";i++){
+                    tmpstr+="リンクナンバー"+llList2String(controller_linknum,i)+"のCONTROLLERが容量オーバーしています。\n";
+                }
+                llOwnerSay("×エラー：POSLOAD失敗\n"+tmpstr+"該当CONTROLLERのコマンドを減らしてPOSMEMORYからやり直してください。");
             }
             return;
         }
