@@ -122,6 +122,11 @@ default{
         if(chnl==dlgchnl){
             if((msg=="POSMEMORY")||(msg=="POSLOAD")){
                 llSetTimerEvent(0);
+                llListenRemove(lsnnum);
+                if(llGetNumberOfPrims()==1){
+                    llOwnerSay("CONTROLLERがリンクされていません。");
+                    return;
+                }
                 lsnnum=llListen(COMMON_CHANNEL+1,"","","");
                 llShout(COMMON_CHANNEL+1,llGetObjectDesc()+",GET_FLAGINFO");
                 llOwnerSay("FrogFlagを確認中・・・");

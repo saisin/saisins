@@ -97,10 +97,10 @@ default
             return;
         }
         if(command=="IMPULSE"){
-            llApplyImpulse((vector)llList2String(tmplist,1),FALSE);
+            llApplyImpulse((vector)llList2String(tmplist,1)*llGetObjectMass(llGetKey()),FALSE);
         }
         if(command=="IMPULSE2"){
-            llApplyImpulse((vector)llList2String(tmplist,1),TRUE);
+            llApplyImpulse((vector)llList2String(tmplist,1)*llGetObjectMass(llGetKey()),TRUE);
         }
         if(command=="OMEGA"){//OMEGA,<0,0,1>,speed
             llTargetOmega((vector)llList2String(tmplist,1),(float)llList2String(tmplist,2),(float)llList2String(tmplist,2));
