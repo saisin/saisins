@@ -1,7 +1,15 @@
-﻿// ver.2.1[2015/7/15]
+﻿//####################
+//
+//  CONTRO - +COLLISION
+//
+// ver.2.0[2015/7/19]
+//####################
+
+//■アバターやオブジェクトとぶつかったら実行する
+
 default{
-state_entry(){}
-collision_start(integernum){
-llMessageLinked(LINK_THIS,llGetLinkNumber(),"RUN","");
-}
+    state_entry(){}
+    collision_start(integer num){
+        llMessageLinked(LINK_THIS,llGetLinkNumber(),"RUN","");
+    }
 }

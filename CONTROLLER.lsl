@@ -176,6 +176,7 @@ MakeCommandlist(){
             
                 //終了なら格納
                 if(i==2000){
+					command_buffer="";
                     if((tmpcommand!="")||(tmp_say_shout!="")){
                         if(tmpcommand==""){tmpcommand=" ";}
                         if(tmp_say_shout==""){tmp_say_shout=" ";}                    
@@ -288,6 +289,7 @@ default{
                 req_note=llGetNotecardLine(NOTENAME,noteline);
             }else{
 
+				jointstrings="";
                 //pos()を抜き出して置換
                 command_buffer=command_source;
                 integer i;
