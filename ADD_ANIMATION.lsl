@@ -2,7 +2,7 @@
 //
 //  CONTRO - #ADD_ANIMATION
 //
-// ver.2.1[2015/7/15]
+// ver.2.11[2015/7/15]
 //##########################################
 //[ スクリの動作 ]
 // アニメーション・ダンス用のスクリプト
@@ -23,19 +23,14 @@
 //
 //##########################################8
 list NUMLIST=["0","1","2","3","4","5","6","7","8","9"]; //数字チェック用
-integer LNKMSGCHNL=466938182; //リンクメッセージで通信するチャンネル
-string MSG_COULDNT_FIND_AVATAR="さんが96m以内に見つかりませんでした。";
 //string MSG_PERMISSION_ERROR="アニメーションの権限がありません。ANIM_REGISTRYコマンドで権限を取得してください。";
 
 integer my_script_number;                //このスクリプトの番号
 string my_avatar_name;                    //このスクリプトが保持しているアバター名
 key my_avatar_key;                    //このスクリプトが保持しているアバターキー
 string nowanim;                      //実行中のアニメーション
-
 string tgt_name;                //サーチする対象アバター名
-integer tgt_number;              //要求されている操作先ナンバー
 integer perm;                    //アニメーションのパーミッションフラグ
-
 integer i;
 //==========================================================
 default{
@@ -116,6 +111,6 @@ default{
         llRequestPermissions(llDetectedKey(0),PERMISSION_TRIGGER_ANIMATION);
     }
     no_sensor(){
-        llOwnerSay(tgt_name+MSG_COULDNT_FIND_AVATAR);
+        llOwnerSay(tgt_name+"さんが96m以内に見つかりませんでした。");
     }
 }

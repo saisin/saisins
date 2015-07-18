@@ -1,11 +1,4 @@
-﻿//##########################################
-//
-//  CONTRO - NoPoseStand
-//
-//  ver.2.1[2015/7/15]
-//##########################################
-
-key sit_ava;
+﻿key sit_ava;
 integer lsnnum;
 integer lsnchnl;
 float sit_offset=-0.35;
@@ -35,7 +28,6 @@ anim=llGetInventoryName(INVENTORY_ANIMATION,0);
 if(anim!=""){
 llStartAnimation(anim);
 }
-//llSetAlpha(0.01,ALL_SIDES);
 llSetTexture(TEXTURE_TRANSPARENT,ALL_SIDES);
 }else{
 llSetAlpha(1,ALL_SIDES);

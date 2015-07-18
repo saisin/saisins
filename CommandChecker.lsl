@@ -2,7 +2,7 @@
 //
 //  CONTRO - #CommandChecker
 //
-//  ver.2.1[2015/7/15]
+//  ver.2.11[2015/7/15]
 //##########################################
 
 integer power=FALSE;
@@ -45,7 +45,6 @@ touch_start(integer num){
     power=!power;
 }
 listen(integer chnl,string name,key id,string msg){
-    llOwnerSay(msg);
     if(llGetOwnerKey(id)!=llGetOwner()){return;}
     //HTTP経由で構文チェック
 

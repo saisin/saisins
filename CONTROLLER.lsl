@@ -2,7 +2,7 @@
 //
 //  CONTRO - #CONTROLLER
 //
-//    ver.2.65 [2015/7/15]
+//    ver.2.66 [2015/7/15]
 //##########################################
 //[ スクリの動作 ]
 //１、ノートカードに書かれたコマンドをShoutする
@@ -176,7 +176,7 @@ MakeCommandlist(){
             
                 //終了なら格納
                 if(i==2000){
-					command_buffer="";
+		    command_buffer="";
                     if((tmpcommand!="")||(tmp_say_shout!="")){
                         if(tmpcommand==""){tmpcommand=" ";}
                         if(tmp_say_shout==""){tmp_say_shout=" ";}                    
@@ -330,7 +330,6 @@ default{
                 //llOwnerSay("cmdlist="+llDumpList2String(commandlist,"\n"));
                 
                 loadingflg=FALSE;
-                llOwnerSay("memory="+(string)llGetUsedMemory());
             }
         }
     }
