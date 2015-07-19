@@ -1,22 +1,7 @@
-﻿//##########################################
-//
-//  CONTRO - #FrogFlag
-//
-//  ver.2.1[2015/7/15]
-//##########################################
-//[ スクリの動作 ]
-//　GET_FLAGPOSが来たら位置と角度をShoutする。
-//
-//
-//====================================================
-//[ input ]
-// (COMMON_CHANNEL) channelname,GET_FLAGPOS   [from CONTROLLER->#POSMEMORY]
-//[output]
-// (COMMON_CHANNEL) chnlname,FLAG_INFO,llGetPos(),llGetRot()
-//
-//##########################################
-integer COMMON_CHANNEL=1357246809; //共通リッスンチャンネル
-string chnlname;  //チャンネル名(混線防止)
+﻿//  ver.2.1[2015/7/15]
+
+integer COMMON_CHANNEL=1357246809;
+string chnlname;
 string MSG_HOWTO="任意の基準点に設置してください。次にMOBILE_BASEを長押ししてPosMemory/PosLoadを行ってください。";
 
 default
@@ -25,7 +10,7 @@ default
         llOwnerSay(MSG_HOWTO);
         if((llGetObjectDesc()=="")||(llGetObjectDesc()=="(No Description)")){
             if(llGetLinkPrimitiveParams(2,[PRIM_DESC])!=[""]){
-                llSetObjectDesc(llList2String(llGetLinkPrimitiveParams(2,[PRIM_DESC]),0));//子プリム１のDESCをコピー
+                llSetObjectDesc(llList2String(llGetLinkPrimitiveParams(2,[PRIM_DESC]),0));
             }else{
                 llSetObjectDesc("OWNER");
             }
@@ -38,7 +23,7 @@ default
     }
     listen(integer chnl,string name,key id,string msg){
         list tmplist=llCSV2List(msg);
-        chnlname=llList2String(tmplist,0);          //チャンネル名取得
+        chnlname=llList2String(tmplist,0);
         if(chnlname!=llGetObjectDesc()){
             return;
         }
